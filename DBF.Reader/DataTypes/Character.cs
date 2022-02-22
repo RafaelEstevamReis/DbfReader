@@ -4,6 +4,7 @@ namespace DBF.Reader.DataTypes
 {
     public class Character : IDataType
     {
+
         private Character() { }
 
         static Character instance = null;
@@ -16,9 +17,9 @@ namespace DBF.Reader.DataTypes
             }
         }
         
-        public object Read(byte[] Buffer, byte[] Memo)
-        {
-            string text = Encoding.ASCII.GetString(Buffer).Trim();
+        public object Read(Header header, byte[] Buffer, byte[] Memo)
+        {            
+            string text = header.Encoding.GetString(Buffer).Trim();
             if (text.Length == 0) return null;
             return text;
         }

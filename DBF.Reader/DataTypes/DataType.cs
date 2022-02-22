@@ -4,7 +4,7 @@ namespace DBF.Reader.DataTypes
 {
     public interface IDataType
     {
-        object Read(byte[] Buffer, byte[] Memo);
+        object Read(Header header, byte[] Buffer, byte[] Memo);
     }
     internal class DataType
     {

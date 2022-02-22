@@ -10,18 +10,21 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
-using System.Linq;
+using System.Text;
 
 namespace DBF.Reader
 {
     public class Table
     {
+        public static Encoding DefaultEncoding { get; set; } = Encoding.ASCII;
         public ProgressChangedEventHandler LoadProgressChanged;
+
+        public Encoding Encoding { get; private set; }
 
         string tableName;
         private Header header;
 
-        public Table()
+        private Table()
         {
             header = Header.CreateHeader(Versions.FoxBaseDBase3NoMemo);
             Fields = new List<Field>();
@@ -108,6 +111,8 @@ namespace DBF.Reader
             var version = (Versions)bVersion;
             header = Header.CreateHeader(version);
             header.Read(reader);
+
+            header.Encoding = Encoding;
         }
         private void readFields(BinaryReader reader)
         {
@@ -165,15 +170,57 @@ namespace DBF.Reader
                     if (fieldIndex < 0) continue;
 
                     var data = r.Data[fieldIndex];
+                    if (data == null) continue;                    
                     var fieldType = Fields[fieldIndex].GetNativeType();
 
                     prop.SetValue(t, Convert.ChangeType(data, fieldType));
                 }
 
-                yield return default;
+                yield return t;
             }
         }
 
+        public string ExportModelClassTemplate()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"public record {tableName}");
+            sb.AppendLine("{");
+            foreach (var f in Fields)
+            {
+                var native = f.GetNativeType();
+                string typeName = native.Name;
+                if (typeName == "Nullable`1") typeName = $"{native.GenericTypeArguments[0].Name}?";
+
+                typeName = typeName.Replace("String", "string")
+                                   .Replace("Int32", "int")
+                                   .Replace("Boolean", "bool")
+                                   .Replace("Single", "float")
+                                   .Replace("Double", "double")
+                                   .Replace("Decimal", "decimal")
+                                   ;
+
+                var field = $"\tpublic {typeName} {f.Name} {{get ; set; }}";
+                sb.AppendLine(field);
+            }
+            sb.AppendLine("}");
+
+            return sb.ToString();
+        }
+
+        public static Table Open(string Path, IProgress<int> Progress = null, Encoding encoding = null)
+        {
+            if (encoding == null) encoding = DefaultEncoding;
+
+            Table t = new Table();
+            t.Encoding = encoding;
+            if (Progress != null)
+            {
+                t.LoadProgressChanged += (s, e) => Progress.Report(e.ProgressPercentage);
+            }
+            t.read(Path);
+
+            return t;
+        }
         public static DataTable Load(string Path, IProgress<int> Progress = null)
         {
             Table t = new Table();

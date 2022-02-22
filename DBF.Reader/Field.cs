@@ -47,7 +47,7 @@ namespace DBF.Reader
                 case FieldType.Character:
                     return typeof(string);
                 case FieldType.Currency:
-                    return typeof(float);
+                    return typeof(decimal);
                 case FieldType.Numeric:
                     return typeof(float);
                 case FieldType.Float:
@@ -59,7 +59,7 @@ namespace DBF.Reader
                 case FieldType.Double:
                     return typeof(double);
                 case FieldType.Integer:
-                    return typeof(Int32);
+                    return typeof(int);
                 case FieldType.Logical:
                     return typeof(bool?);
                 case FieldType.Memo:
@@ -72,6 +72,11 @@ namespace DBF.Reader
                 default:
                     return typeof(object);
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{Type} {Name}";
         }
     }
 }

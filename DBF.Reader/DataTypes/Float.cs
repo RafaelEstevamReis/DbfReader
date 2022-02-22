@@ -17,7 +17,7 @@ namespace DBF.Reader.DataTypes
             }
         }
         
-        public object Read(byte[] Buffer, byte[] Memo)
+        public object Read(Header header, byte[] Buffer, byte[] Memo)
         {
             string text = Encoding.ASCII.GetString(Buffer).Trim();
             if (text.Length == 0) return null;

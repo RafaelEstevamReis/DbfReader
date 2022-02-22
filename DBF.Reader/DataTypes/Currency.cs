@@ -16,7 +16,7 @@ namespace DBF.Reader.DataTypes
             }
         }
         
-        public object Read(byte[] Buffer, byte[] Memo)
+        public object Read(Header header, byte[] Buffer, byte[] Memo)
         {
             return BitConverter.ToSingle(Buffer, 0);
         }

@@ -15,7 +15,7 @@ namespace DBF.Reader.DataTypes
                 return instance;
             }
         }        
-        public object Read(byte[] Buffer, byte[] Memo)
+        public object Read(Header header, byte[] Buffer, byte[] Memo)
         {
             return ConvertFoxProToDateTime(Buffer);
         }

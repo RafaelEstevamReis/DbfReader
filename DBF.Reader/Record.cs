@@ -31,7 +31,7 @@ namespace DBF.Reader
                 offset += field.Length;
 
                 var encoder = DataTypes.DataType.GetData(field.Type);
-                Data.Add(encoder.Read(buffer, memoData));
+                Data.Add(encoder.Read(header, buffer, memoData));
             }
         }
     }

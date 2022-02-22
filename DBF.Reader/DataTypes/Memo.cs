@@ -18,7 +18,7 @@ namespace DBF.Reader.DataTypes
             }
         }
         
-        public object Read(byte[] Buffer, byte[] Memo)
+        public object Read(Header header, byte[] Buffer, byte[] Memo)
         {
             int index;
             if (Buffer.Length > 4)
@@ -36,6 +36,7 @@ namespace DBF.Reader.DataTypes
         }
         private static string readMemo(int index, byte[] memoData)
         {
+            if (memoData == null) return null;
             UInt16 blockSize = BitConverter.ToUInt16(memoData.Skip(6).Take(2).Reverse().ToArray(), 0);
             int type = (int)BitConverter.ToUInt32(memoData.Skip(index * blockSize).Take(4).Reverse().ToArray(), 0);
             int length = (int)BitConverter.ToUInt32(memoData.Skip(index * blockSize + 4).Take(4).Reverse().ToArray(), 0);

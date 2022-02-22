@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace DBF.Reader
 {
@@ -10,6 +11,8 @@ namespace DBF.Reader
         public uint RowCount { get; set; }
         public ushort HeaderLen { get; set; }
         public ushort RecordLen { get; set; }
+
+        public Encoding Encoding { get; internal set; }
 
         public static Header CreateHeader(Versions Version)
         {
