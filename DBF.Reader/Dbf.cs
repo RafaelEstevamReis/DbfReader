@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Linq;
 
 namespace DBF.Reader
 {
@@ -149,6 +150,28 @@ namespace DBF.Reader
             }
 
             return dt;
+        }
+        public IEnumerable<T> Get<T>()
+        {
+            var type = typeof(T);
+
+            foreach (var r in Records)
+            {
+                T t = Activator.CreateInstance<T>();
+
+                foreach (var prop in type.GetProperties())
+                {
+                    int fieldIndex = Fields.FindIndex(o => o.Name.Equals(prop.Name, StringComparison.OrdinalIgnoreCase));
+                    if (fieldIndex < 0) continue;
+
+                    var data = r.Data[fieldIndex];
+                    var fieldType = Fields[fieldIndex].GetNativeType();
+
+                    prop.SetValue(t, Convert.ChangeType(data, fieldType));
+                }
+
+                yield return default;
+            }
         }
 
         public static DataTable Load(string Path, IProgress<int> Progress = null)
