@@ -14,7 +14,7 @@ using System.Text;
 
 namespace Simple.DBF
 {
-    public class Table
+    public class Reader
     {
         public static Encoding DefaultEncoding { get; set; } = Encoding.ASCII;
         public ProgressChangedEventHandler LoadProgressChanged;
@@ -24,7 +24,7 @@ namespace Simple.DBF
         string tableName;
         private Header header;
 
-        private Table()
+        private Reader()
         {
             header = Header.CreateHeader(Versions.FoxBaseDBase3NoMemo);
             Fields = new List<Field>();
@@ -207,11 +207,11 @@ namespace Simple.DBF
             return sb.ToString();
         }
 
-        public static Table Open(string Path, IProgress<int> Progress = null, Encoding encoding = null)
+        public static Reader Open(string Path, IProgress<int> Progress = null, Encoding encoding = null)
         {
             if (encoding == null) encoding = DefaultEncoding;
 
-            Table t = new Table();
+            Reader t = new Reader();
             t.Encoding = encoding;
             if (Progress != null)
             {
@@ -223,7 +223,7 @@ namespace Simple.DBF
         }
         public static DataTable Load(string Path, IProgress<int> Progress = null)
         {
-            Table t = new Table();
+            Reader t = new Reader();
             if (Progress != null)
             {
                 t.LoadProgressChanged += (s, e) => Progress.Report(e.ProgressPercentage);
