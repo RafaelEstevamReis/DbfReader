@@ -22,9 +22,9 @@ namespace DBF.Reader
 
         public Table()
         {
-            this.header = Header.CreateHeader(Versions.FoxBaseDBase3NoMemo);
-            this.Fields = new List<Field>();
-            this.Records = new List<Record>();
+            header = Header.CreateHeader(Versions.FoxBaseDBase3NoMemo);
+            Fields = new List<Field>();
+            Records = new List<Record>();
         }
 
         public uint HeaderRowCount => header.RowCount;
