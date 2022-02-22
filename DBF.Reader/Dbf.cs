@@ -47,7 +47,7 @@ namespace DBF.Reader
             lastProgressReport = percent;
             LoadProgressChanged(this, new ProgressChangedEventArgs(percent, null));
         }
-        public void Read(string path)
+        void read(string path)
         {
             reportProgress(0);
             tableName = new FileInfo(path).Name.Split('.')[0];
@@ -62,22 +62,22 @@ namespace DBF.Reader
                     // reposition the cursor
                     // read data
 
-                    ReadHeader(reader);
-                    byte[] memoData = ReadMemos(path);
+                    readHeader(reader);
+                    byte[] memoData = readMemos(path);
 
                     reportProgress(1); // 1%
-                    ReadFields(reader);
+                    readFields(reader);
 
                     // 2+%
                     reportProgress(2);
                     stream.Seek(header.HeaderLen, SeekOrigin.Begin);
-                    ReadRecords(reader, memoData);
+                    readRecords(reader, memoData);
                 }
             }
             reportProgress(100);
         }
 
-        private byte[] ReadMemos(string path)
+        private byte[] readMemos(string path)
         {
             string memoPath = Path.ChangeExtension(path, "fpt");
             if (!File.Exists(memoPath))
@@ -100,7 +100,7 @@ namespace DBF.Reader
             }
         }
 
-        private void ReadHeader(BinaryReader reader)
+        private void readHeader(BinaryReader reader)
         {
             byte bVersion = reader.ReadByte();
             reader.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -108,7 +108,7 @@ namespace DBF.Reader
             header = Header.CreateHeader(version);
             header.Read(reader);
         }
-        private void ReadFields(BinaryReader reader)
+        private void readFields(BinaryReader reader)
         {
             Fields.Clear();
 
@@ -119,7 +119,7 @@ namespace DBF.Reader
             // Consume 'end field' byte
             reader.ReadByte();
         }
-        private void ReadRecords(BinaryReader reader, byte[] memoData)
+        private void readRecords(BinaryReader reader, byte[] memoData)
         {
             Records.Clear();
 
@@ -158,7 +158,7 @@ namespace DBF.Reader
             {
                 t.LoadProgressChanged += (s, e) => Progress.Report(e.ProgressPercentage);
             }
-            t.Read(Path);
+            t.read(Path);
             return t.ToDataTable();
         }
     }
