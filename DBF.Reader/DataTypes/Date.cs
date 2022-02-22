@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace DBF.Reader.DataTypes
+namespace Simple.DBF.DataTypes
 {
     public class Date : IDataType
     {

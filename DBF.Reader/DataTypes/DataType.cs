@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBF.Reader.DataTypes
+namespace Simple.DBF.DataTypes
 {
     public interface IDataType
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace DBF.Reader
+namespace Simple.DBF
 {
     public class Record
     {

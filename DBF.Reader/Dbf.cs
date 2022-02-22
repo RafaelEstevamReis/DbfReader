@@ -12,7 +12,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 
-namespace DBF.Reader
+namespace Simple.DBF
 {
     public class Table
     {

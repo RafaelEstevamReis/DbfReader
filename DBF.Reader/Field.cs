@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 
-namespace DBF.Reader
+namespace Simple.DBF
 {
     public class Field
     {

@@ -1,4 +1,4 @@
-﻿namespace DBF.Reader
+﻿namespace Simple.DBF
 {
     public enum Versions
     {

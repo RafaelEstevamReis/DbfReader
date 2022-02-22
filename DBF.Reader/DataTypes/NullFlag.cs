@@ -1,4 +1,4 @@
-﻿namespace DBF.Reader.DataTypes
+﻿namespace Simple.DBF.DataTypes
 {
     public class NullFlag : IDataType
     {

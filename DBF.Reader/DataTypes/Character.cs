@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DBF.Reader.DataTypes
+namespace Simple.DBF.DataTypes
 {
     public class Character : IDataType
     {

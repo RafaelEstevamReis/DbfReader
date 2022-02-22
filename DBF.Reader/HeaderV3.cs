@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBF.Reader
+namespace Simple.DBF
 {
     public class HeaderV3 : Header
     {
