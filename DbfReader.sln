@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBF.Reader", "DBF.Reader\DBF.Reader.csproj", "{1A2C42C1-D82E-4295-A449-9E6E52DF0946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBF.Reader", "DBF.Reader\DBF.Reader.csproj", "{1A2C42C1-D82E-4295-A449-9E6E52DF0946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBF.Test", "DBF.Test\DBF.Test.csproj", "{CEAE45D7-EF46-47EB-9652-BB3866268389}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1A2C42C1-D82E-4295-A449-9E6E52DF0946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A2C42C1-D82E-4295-A449-9E6E52DF0946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A2C42C1-D82E-4295-A449-9E6E52DF0946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEAE45D7-EF46-47EB-9652-BB3866268389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEAE45D7-EF46-47EB-9652-BB3866268389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEAE45D7-EF46-47EB-9652-BB3866268389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEAE45D7-EF46-47EB-9652-BB3866268389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
