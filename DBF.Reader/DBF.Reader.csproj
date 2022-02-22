@@ -11,6 +11,10 @@
     <RepositoryUrl>https://github.com/RafaelEstevamReis/DbfReader</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>DBF</PackageTags>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>Simple.DBF</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
