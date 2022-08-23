@@ -170,7 +170,7 @@ namespace Simple.DBF
                     if (fieldIndex < 0) continue;
 
                     var data = r.Data[fieldIndex];
-                    if (data == null) continue;                    
+                    if (data == null) continue;
                     var fieldType = Fields[fieldIndex].GetNativeType();
 
                     prop.SetValue(t, Convert.ChangeType(data, fieldType));
@@ -224,12 +224,33 @@ namespace Simple.DBF
         public static DataTable Load(string Path, IProgress<int> Progress = null)
         {
             Reader t = new Reader();
+
             if (Progress != null)
             {
                 t.LoadProgressChanged += (s, e) => Progress.Report(e.ProgressPercentage);
             }
+            if (t.Encoding == null) t.Encoding = Encoding.Default;
             t.read(Path);
             return t.ToDataTable();
+        }
+
+        public static uint GetRowCount(string fullName)
+        {
+            var db = new Reader();
+            using (FileStream stream = File.Open(fullName, FileMode.Open, FileAccess.Read))
+            {
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    // Process reader
+                    // Get Memo data
+                    // Get Fields
+                    // reposition the cursor
+                    // read data
+
+                    db.readHeader(reader);
+                }
+            }
+            return db.HeaderRowCount;
         }
     }
 }
