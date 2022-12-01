@@ -208,7 +208,7 @@ namespace Simple.DBF
                                    .Replace("Decimal", "decimal")
                                    ;
 
-                var field = $"\tpublic {typeName} {f.Name} {{get ; set; }}";
+                var field = $"    public {typeName} {f.Name} {{get ; set; }}";
                 sb.AppendLine(field);
             }
             sb.AppendLine("}");
@@ -228,9 +228,9 @@ namespace Simple.DBF
                 string example = null;
                 if (includeExample)
                 {
-                    for (int r = 0; r < 10 && r < Records.Count; r++)
+                    for (int r = 0; r < 25 && r < Records.Count; r++)
                     {
-                        example = Records[r].Data[i].ToString();
+                        example = Records[r].Data[i]?.ToString();
                         if (!string.IsNullOrEmpty(example)) break;
                     }
                 }
@@ -247,7 +247,9 @@ namespace Simple.DBF
             switch (f.Type)
             {
                 case FieldType.Float:
+                    return $"FLOAT ({f.Length},{f.Precision})";
                 case FieldType.Double:
+                    return $"DOUBLE ({f.Length},{f.Precision})";
                 case FieldType.Numeric:
                     return $"NUMERIC ({f.Length},{f.Precision})";
 
