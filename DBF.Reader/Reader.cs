@@ -16,6 +16,7 @@ namespace Simple.DBF
 {
     public class Reader
     {
+        const byte EOF = 0x1A;
         public static Encoding DefaultEncoding { get; set; } = Encoding.ASCII;
         public ProgressChangedEventHandler LoadProgressChanged;
 
@@ -128,10 +129,18 @@ namespace Simple.DBF
         private void readRecords(BinaryReader reader, byte[] memoData)
         {
             Records.Clear();
-
-            while (reader.PeekChar() != 0x1a && reader.PeekChar() != -1)
+                        
+            while (reader.BaseStream.Position < reader.BaseStream.Length)
             {
-                Records.Add(new Record(reader, header, Fields, memoData));
+                var peekChar = reader.PeekChar();
+                if (peekChar == -1) break;
+                if (peekChar == EOF) break;
+
+                var record = new Record(reader, header, Fields, memoData);
+                if (record.Data.Count > 0)
+                {
+                    Records.Add(record);
+                }
                 reportProgress(Records.Count, (int)HeaderRowCount);
             }
         }
