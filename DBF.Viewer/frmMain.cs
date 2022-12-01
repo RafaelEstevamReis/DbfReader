@@ -1,4 +1,5 @@
 using Simple.DBF;
+using Simple.DBF.DataTypes;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,15 +39,44 @@ namespace DBF.Viewer
             cboTables.Items.Clear();
             var tables = Directory.GetFiles(folder, "*.dbf");
 
-            foreach (var f in tables)
+            trvTabelas.Nodes.Clear();
+            var nodeEmpty = trvTabelas.Nodes.Add("Empty Tables");
+            var nodeTables = trvTabelas.Nodes.Add("Tables");
+
+            progressBar1.Value = 0;
+            for (int i = 0; i < tables.Length; i++)
             {
-                var fi = new FileInfo(f);
+                float perc = (i * 100f) / tables.Length;
+                int iPerc = (int)perc;
+                if (progressBar1.Value != iPerc)
+                {
+                    progressBar1.Value = iPerc;
+                    lblDadosTabela.Text = $"{i:N0}/{tables.Length:N0}";
+                    Application.DoEvents();
+                }
 
-                var count = Reader.GetRowCount(fi.FullName);
+                var fi = new FileInfo(tables[i]);
 
-                cboTables.Items.Add($"{fi.Name} [{count:N0} rows] ");
+                uint count;
+                string name;
+                try
+                {
+                    count = Reader.GetRowCount(fi.FullName);
+                    name = $"{fi.Name} [{count:N0} rows] ";
+                }
+                catch
+                {
+                    count = 0;
+                    name = $"{fi.Name} [ERROR] ";
+                }
+
+                cboTables.Items.Add(name);
+
+                if (count == 0) nodeEmpty.Nodes.Add(name);
+                else nodeTables.Nodes.Add(name);
             }
-
+            progressBar1.Value = 0;
+            lblDadosTabela.Text = "Complete";
         }
 
         private async void cboTables_SelectedIndexChanged(object sender, EventArgs e)

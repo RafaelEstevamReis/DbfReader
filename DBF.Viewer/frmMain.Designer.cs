@@ -38,6 +38,7 @@ namespace DBF.Viewer
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnChangePath = new System.Windows.Forms.Button();
+            this.trvTabelas = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.grdDados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,11 +68,11 @@ namespace DBF.Viewer
             this.grdDados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grdDados.Location = new System.Drawing.Point(0, 33);
+            this.grdDados.Location = new System.Drawing.Point(256, 33);
             this.grdDados.Name = "grdDados";
             this.grdDados.ReadOnly = true;
             this.grdDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdDados.Size = new System.Drawing.Size(800, 400);
+            this.grdDados.Size = new System.Drawing.Size(807, 476);
             this.grdDados.TabIndex = 2;
             this.grdDados.SelectionChanged += new System.EventHandler(this.grdDados_SelectionChanged);
             // 
@@ -79,15 +80,15 @@ namespace DBF.Viewer
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(133, 433);
+            this.progressBar1.Location = new System.Drawing.Point(133, 509);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(661, 16);
+            this.progressBar1.Size = new System.Drawing.Size(924, 16);
             this.progressBar1.TabIndex = 3;
             // 
             // lblDadosTabela
             // 
             this.lblDadosTabela.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDadosTabela.Location = new System.Drawing.Point(2, 434);
+            this.lblDadosTabela.Location = new System.Drawing.Point(2, 510);
             this.lblDadosTabela.Name = "lblDadosTabela";
             this.lblDadosTabela.Size = new System.Drawing.Size(125, 15);
             this.lblDadosTabela.TabIndex = 4;
@@ -121,11 +122,21 @@ namespace DBF.Viewer
             this.btnChangePath.UseVisualStyleBackColor = true;
             this.btnChangePath.Click += new System.EventHandler(this.btnChangePath_Click);
             // 
+            // trvTabelas
+            // 
+            this.trvTabelas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.trvTabelas.Location = new System.Drawing.Point(2, 33);
+            this.trvTabelas.Name = "trvTabelas";
+            this.trvTabelas.Size = new System.Drawing.Size(251, 476);
+            this.trvTabelas.TabIndex = 8;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1063, 526);
+            this.Controls.Add(this.trvTabelas);
             this.Controls.Add(this.btnChangePath);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
@@ -154,5 +165,6 @@ namespace DBF.Viewer
         private Label label2;
         private TextBox textBox1;
         private Button btnChangePath;
+        private TreeView trvTabelas;
     }
 }
