@@ -133,6 +133,7 @@ namespace DBF.Viewer
                 atualizaStatus();
 
                 txtTableInfo_Schema_CreateTable.Text = reader.ExportCreateTable(includeExample: true);
+                txtTableInfo_Schema_CSharp.Text = reader.ExportModelClassTemplate();
 
             }
             catch (Exception ex)

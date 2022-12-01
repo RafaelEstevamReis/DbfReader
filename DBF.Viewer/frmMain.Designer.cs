@@ -42,14 +42,20 @@ namespace DBF.Viewer
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtTableInfo_Schema_CreateTable = new System.Windows.Forms.TextBox();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtTableInfo_Schema_CSharp = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdDados)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -166,10 +172,9 @@ namespace DBF.Viewer
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.tabControl2);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.txtTableInfo_Schema_CreateTable);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -177,15 +182,6 @@ namespace DBF.Viewer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Table Information";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 167);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(126, 15);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Equivalent create table";
             // 
             // label4
             // 
@@ -209,15 +205,58 @@ namespace DBF.Viewer
             // 
             // txtTableInfo_Schema_CreateTable
             // 
-            this.txtTableInfo_Schema_CreateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTableInfo_Schema_CreateTable.Location = new System.Drawing.Point(3, 185);
+            this.txtTableInfo_Schema_CreateTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtTableInfo_Schema_CreateTable.Location = new System.Drawing.Point(3, 3);
             this.txtTableInfo_Schema_CreateTable.Multiline = true;
             this.txtTableInfo_Schema_CreateTable.Name = "txtTableInfo_Schema_CreateTable";
             this.txtTableInfo_Schema_CreateTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTableInfo_Schema_CreateTable.Size = new System.Drawing.Size(742, 231);
+            this.txtTableInfo_Schema_CreateTable.Size = new System.Drawing.Size(774, 242);
             this.txtTableInfo_Schema_CreateTable.TabIndex = 0;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Location = new System.Drawing.Point(4, 168);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(788, 276);
+            this.tabControl2.TabIndex = 8;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.txtTableInfo_Schema_CreateTable);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(780, 248);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "SQL";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.txtTableInfo_Schema_CSharp);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(780, 248);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "C#";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtTableInfo_Schema_CSharp
+            // 
+            this.txtTableInfo_Schema_CSharp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtTableInfo_Schema_CSharp.Location = new System.Drawing.Point(3, 3);
+            this.txtTableInfo_Schema_CSharp.Multiline = true;
+            this.txtTableInfo_Schema_CSharp.Name = "txtTableInfo_Schema_CSharp";
+            this.txtTableInfo_Schema_CSharp.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTableInfo_Schema_CSharp.Size = new System.Drawing.Size(774, 242);
+            this.txtTableInfo_Schema_CSharp.TabIndex = 1;
             // 
             // frmMain
             // 
@@ -242,6 +281,11 @@ namespace DBF.Viewer
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,8 +306,11 @@ namespace DBF.Viewer
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TextBox txtTableInfo_Schema_CreateTable;
-        private Label label5;
         private Label label4;
         private Label label3;
+        private TabControl tabControl2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
+        private TextBox txtTableInfo_Schema_CSharp;
     }
 }
