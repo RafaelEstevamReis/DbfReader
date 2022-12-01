@@ -1,16 +1,18 @@
 using Simple.DBF;
-using Simple.DBF.DataTypes;
 using System;
+using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace DBF.Viewer
 {
     public partial class frmMain : Form
     {
         private string folder;
+        private TreeNode nodeRecent;
+        private TreeNode nodeEmpty;
+        private TreeNode nodeTables;
 
         public frmMain()
         {
@@ -41,8 +43,9 @@ namespace DBF.Viewer
             var tables = Directory.GetFiles(folder, "*.dbf");
 
             trvTabelas.Nodes.Clear();
-            var nodeEmpty = trvTabelas.Nodes.Add("Empty Tables");
-            var nodeTables = trvTabelas.Nodes.Add("Tables");
+            nodeRecent = trvTabelas.Nodes.Add("Recent Tables");
+            nodeEmpty = trvTabelas.Nodes.Add("Empty Tables");
+            nodeTables = trvTabelas.Nodes.Add("Tables");
 
             progressBar1.Value = 0;
             for (int i = 0; i < tables.Length; i++)
@@ -89,19 +92,34 @@ namespace DBF.Viewer
             if (e.Node.Level != 1) return;
 
             var name = e.Node.Text;
+
+            foreach(TreeNode n in nodeRecent.Nodes)
+            {
+                if (n.Text != name) continue;
+                nodeRecent.Nodes.Remove(n);
+                break;
+            }
+            nodeRecent.Nodes.Add(name);
+
             name = name.Substring(0, name.LastIndexOf('[')).Trim();
             await loadTableAsync(name);
         }
         private async void cboTables_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboTables.Enabled = false;
-
             var name = cboTables.Text;
             name = name.Substring(0, name.LastIndexOf('[')).Trim();
             await loadTableAsync(name);
         }
         private async Task loadTableAsync(string tableName)
         {
+            lblDadosTabela.Text = "Loading...";
+            cboTables.Enabled = false;
+            trvTabelas.Enabled = false;
+
+            grdDados.DataSource = null;
+            grdDados.Rows.Clear();
+            grdDados.Columns.Clear();
+
             var filePath = Path.Combine(folder, tableName);
 
             var progress = new Progress<int>();
@@ -116,9 +134,10 @@ namespace DBF.Viewer
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("An error occurred while loading the table:\n" + ex.Message);
             }
 
+            trvTabelas.Enabled = true;
             cboTables.Enabled = true;
             lblDadosTabela.Text = tableName;
         }
