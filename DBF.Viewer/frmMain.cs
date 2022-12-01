@@ -127,10 +127,13 @@ namespace DBF.Viewer
 
             try
             {
-                var dt = await Task.Run(() => Reader.Load(filePath, progress));
-                grdDados.DataSource = dt;
+                var reader = await Task.Run(() => Reader.Open(filePath, progress));
+                grdDados.DataSource = reader.ToDataTable();
                 progressBar1.Value = 0;
                 atualizaStatus();
+
+                txtTableInfo_Schema_CreateTable.Text = reader.ExportCreateTable(includeExample: true);
+
             }
             catch (Exception ex)
             {

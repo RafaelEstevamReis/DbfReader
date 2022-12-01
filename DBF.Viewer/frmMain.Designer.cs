@@ -39,7 +39,17 @@ namespace DBF.Viewer
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnChangePath = new System.Windows.Forms.Button();
             this.trvTabelas = new System.Windows.Forms.TreeView();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtTableInfo_Schema_CreateTable = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdDados)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -65,14 +75,12 @@ namespace DBF.Viewer
             // 
             this.grdDados.AllowUserToAddRows = false;
             this.grdDados.AllowUserToDeleteRows = false;
-            this.grdDados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grdDados.Location = new System.Drawing.Point(256, 33);
+            this.grdDados.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdDados.Location = new System.Drawing.Point(3, 3);
             this.grdDados.Name = "grdDados";
             this.grdDados.ReadOnly = true;
             this.grdDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdDados.Size = new System.Drawing.Size(807, 476);
+            this.grdDados.Size = new System.Drawing.Size(789, 441);
             this.grdDados.TabIndex = 2;
             this.grdDados.SelectionChanged += new System.EventHandler(this.grdDados_SelectionChanged);
             // 
@@ -132,11 +140,91 @@ namespace DBF.Viewer
             this.trvTabelas.TabIndex = 8;
             this.trvTabelas.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvTabelas_NodeMouseDoubleClick);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(259, 34);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(803, 475);
+            this.tabControl1.TabIndex = 9;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.grdDados);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(795, 447);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Table Data";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.txtTableInfo_Schema_CreateTable);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(795, 447);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Table Information";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 167);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(126, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Equivalent create table";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(3, 152);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 15);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "SCHEMA";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(3, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "GENERAL";
+            // 
+            // txtTableInfo_Schema_CreateTable
+            // 
+            this.txtTableInfo_Schema_CreateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTableInfo_Schema_CreateTable.Location = new System.Drawing.Point(3, 185);
+            this.txtTableInfo_Schema_CreateTable.Multiline = true;
+            this.txtTableInfo_Schema_CreateTable.Name = "txtTableInfo_Schema_CreateTable";
+            this.txtTableInfo_Schema_CreateTable.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTableInfo_Schema_CreateTable.Size = new System.Drawing.Size(742, 231);
+            this.txtTableInfo_Schema_CreateTable.TabIndex = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1063, 526);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.trvTabelas);
             this.Controls.Add(this.btnChangePath);
             this.Controls.Add(this.textBox1);
@@ -145,12 +233,15 @@ namespace DBF.Viewer
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.cboTables);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.grdDados);
             this.Name = "frmMain";
             this.Text = "DBF Viewer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.grdDados)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,5 +258,12 @@ namespace DBF.Viewer
         private TextBox textBox1;
         private Button btnChangePath;
         private TreeView trvTabelas;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TextBox txtTableInfo_Schema_CreateTable;
+        private Label label5;
+        private Label label4;
+        private Label label3;
     }
 }
