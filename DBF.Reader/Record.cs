@@ -21,6 +21,8 @@ namespace Simple.DBF
             Deleted = marker == '*';
             // .. and data
             byte[] row = reader.ReadBytes(header.RecordLen - 1);
+            // Detect EOF
+            if (row.Length > 0 && row[0] == 0x1A) return;
 
             int offset = 0;
             foreach (var field in fields)
