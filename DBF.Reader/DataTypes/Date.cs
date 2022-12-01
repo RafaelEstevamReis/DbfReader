@@ -20,6 +20,9 @@ namespace Simple.DBF.DataTypes
         {
             string text = Encoding.ASCII.GetString(Buffer).Trim();
             if (text.Length == 0) return null;
+
+            if (text.StartsWith("0000")) text = "1900" + text.Substring(4);
+
             return DateTime.ParseExact(text, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
         }
     }
