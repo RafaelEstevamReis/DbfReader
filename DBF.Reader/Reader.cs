@@ -216,6 +216,49 @@ namespace Simple.DBF
             return sb.ToString();
         }
 
+        public string ExportCreateTable(bool includeExample = false)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"CREATE TABLE {tableName} (");
+            for (int i = 0; i < Fields.Count; i++)
+            {
+                var f = Fields[i];
+                string typeName = buildSqlTypeName(f);
+
+                string example = null;
+                if (includeExample)
+                {
+                    for (int r = 0; r < 10 && r < Records.Count; r++)
+                    {
+                        example = Records[r].Data[i].ToString();
+                        if (!string.IsNullOrEmpty(example)) break;
+                    }
+                }
+
+                var field = $"  {f.Name} {typeName}, { (string.IsNullOrEmpty(example) ? "" : $" -- Example: `{example}`") } ";
+                sb.AppendLine(field);
+            }
+            sb.AppendLine(");");
+
+            return sb.ToString();
+        }
+        private string buildSqlTypeName(Field f)
+        {
+            switch (f.Type)
+            {
+                case FieldType.Float:
+                case FieldType.Double:
+                case FieldType.Numeric:
+                    return $"NUMERIC ({f.Length},{f.Precision})";
+
+                case FieldType.Character:
+                    return $"CHAR ({f.Length})";
+
+                default:
+                    return f.Type.ToString().ToUpper();
+            }
+        }
+
         public static Reader Open(string Path, IProgress<int> Progress = null, Encoding encoding = null)
         {
             if (encoding == null) encoding = DefaultEncoding;
