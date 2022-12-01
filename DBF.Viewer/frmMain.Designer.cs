@@ -130,6 +130,7 @@ namespace DBF.Viewer
             this.trvTabelas.Name = "trvTabelas";
             this.trvTabelas.Size = new System.Drawing.Size(251, 476);
             this.trvTabelas.TabIndex = 8;
+            this.trvTabelas.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvTabelas_NodeMouseDoubleClick);
             // 
             // frmMain
             // 

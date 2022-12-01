@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace DBF.Viewer
 {
@@ -77,26 +78,49 @@ namespace DBF.Viewer
             }
             progressBar1.Value = 0;
             lblDadosTabela.Text = "Complete";
-        }
 
+            nodeEmpty.Text = $"Empty Tables ({nodeEmpty.Nodes.Count})";
+            nodeTables.Text = $"Tables ({nodeTables.Nodes.Count})";
+        }
+        private async void trvTabelas_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node == null) return;
+
+            if (e.Node.Level != 1) return;
+
+            var name = e.Node.Text;
+            name = name.Substring(0, name.LastIndexOf('[')).Trim();
+            await loadTableAsync(name);
+        }
         private async void cboTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             cboTables.Enabled = false;
 
             var name = cboTables.Text;
             name = name.Substring(0, name.LastIndexOf('[')).Trim();
-
-            var filePath = Path.Combine(folder, name);
+            await loadTableAsync(name);
+        }
+        private async Task loadTableAsync(string tableName)
+        {
+            var filePath = Path.Combine(folder, tableName);
 
             var progress = new Progress<int>();
             progress.ProgressChanged += Progress_ProgressChanged;
-            var dt = await Task.Run(() => Reader.Load(filePath, progress));
 
-            grdDados.DataSource = dt;
-            progressBar1.Value = 0;
-            atualizaStatus();
+            try
+            {
+                var dt = await Task.Run(() => Reader.Load(filePath, progress));
+                grdDados.DataSource = dt;
+                progressBar1.Value = 0;
+                atualizaStatus();
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             cboTables.Enabled = true;
+            lblDadosTabela.Text = tableName;
         }
 
         private void grdDados_SelectionChanged(object sender, EventArgs e)
@@ -121,6 +145,7 @@ namespace DBF.Viewer
 
         private void Progress_ProgressChanged(object sender, int e)
         {
+            if (e > progressBar1.Maximum) e = progressBar1.Maximum;
             progressBar1.Value = e;
         }
 
