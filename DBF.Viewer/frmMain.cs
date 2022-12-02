@@ -93,7 +93,7 @@ namespace DBF.Viewer
 
             var name = e.Node.Text;
 
-            foreach(TreeNode n in nodeRecent.Nodes)
+            foreach (TreeNode n in nodeRecent.Nodes)
             {
                 if (n.Text != name) continue;
                 nodeRecent.Nodes.Remove(n);
@@ -132,6 +132,22 @@ namespace DBF.Viewer
                 progressBar1.Value = 0;
                 atualizaStatus();
 
+                var fi = new FileInfo(reader.FilePath);
+                lblTableInfo_General_File_Path.Text = reader.FilePath;
+                lblTableInfo_General_File_Size.Text = $"{sizeFormat(fi.Length)} ({fi.Length:N0}b)";
+                lblTableInfo_General_File_CreatedAt.Text = fi.CreationTime.ToString("G");
+                lblTableInfo_General_File_LastWrite.Text = fi.LastWriteTime.ToString("G");
+
+                lblTableInfo_General_Header_Version.Text = $"{reader.HeaderVersion} (0x{(int)reader.HeaderVersion:X2})";
+                lblTableInfo_General_Header_LastUpdate.Text = reader.HeaderLastUpdate.ToString("G");
+                lblTableInfo_General_RowCount_Reported.Text = reader.HeaderRowCount.ToString("N0");
+                lblTableInfo_General_Header_Encoding.Text = reader.HeaderEncoding.EncodingName;
+                lblTableInfo_General_Header_FieldCount.Text = reader.Fields.Count.ToString();
+
+                int deleted = reader.Records.Count(r => r.Deleted);
+                lblTableInfo_General_RowCount_Actual.Text = (reader.RowCount - deleted).ToString("N0");
+                lblTableInfo_General_RowCount_Deleted.Text = deleted.ToString("N0");
+
                 txtTableInfo_Schema_CreateTable.Text = reader.ExportCreateTable(includeExample: true);
                 txtTableInfo_Schema_CSharp.Text = reader.ExportModelClassTemplate();
 
@@ -144,6 +160,31 @@ namespace DBF.Viewer
             trvTabelas.Enabled = true;
             cboTables.Enabled = true;
             lblDadosTabela.Text = tableName;
+        }
+        private string sizeFormat(long bytes)
+        {
+            string unit = "";
+
+            double dSize = bytes;
+            if(dSize > 512)
+            {
+                dSize /= 1024;
+                unit = "KiB";
+            }
+
+            if (dSize > 512)
+            {
+                dSize /= 1024;
+                unit = "MiB";
+            }
+
+            if (dSize > 512)
+            {
+                dSize /= 1024;
+                unit = "GiB";
+            }
+
+            return $"{dSize:N1} {unit}";
         }
 
         private void grdDados_SelectionChanged(object sender, EventArgs e)
