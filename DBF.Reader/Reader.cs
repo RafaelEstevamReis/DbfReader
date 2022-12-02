@@ -6,15 +6,17 @@
 * 
 /***********************************************/
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Simple.DBF
 {
-    public class Reader
+    public class Reader : IEnumerable<DataRow>
     {
         const byte EOF = 0x1A;
         public static Encoding DefaultEncoding { get; set; } = Encoding.ASCII;
@@ -38,9 +40,18 @@ namespace Simple.DBF
         public Encoding HeaderEncoding => header.Encoding;
         public DateTime HeaderLastUpdate => header.LastUpdate;
 
-        public int RowCount => Records.Count;
         public List<Field> Fields { get; }
         public List<Record> Records { get; }
+        public int RowCount => Records.Count;
+        public object this[int r, int c] => Records[r].Data[c];
+        public object this[int r, string c]
+        {
+            get
+            {
+                var idx = Fields.FindIndex(f => f.Name.Equals(c, StringComparison.InvariantCultureIgnoreCase));
+                return Records[r].Data[idx];
+            }
+        }
 
         void reportProgress(int current, int rowCount)
         {
@@ -153,25 +164,28 @@ namespace Simple.DBF
             }
         }
 
+        DataTable dtCache = null;
         public DataTable ToDataTable()
         {
-            var dt = new DataTable(TableName);
+            if (dtCache != null) return dtCache;
+
+            dtCache = new DataTable(TableName);
             foreach (var v in Fields)
             {
                 var t = v.GetNativeType();
 
                 if (v.Type == FieldType.Logical) t = typeof(bool);
-                var cln = dt.Columns.Add(v.Name, t);
+                var cln = dtCache.Columns.Add(v.Name, t);
                 cln.AllowDBNull = true;
             }
 
             foreach (var r in Records)
             {
                 if (r.Deleted) continue;
-                dt.Rows.Add(r.Data.ToArray());
+                dtCache.Rows.Add(r.Data.ToArray());
             }
 
-            return dt;
+            return dtCache;
         }
         public IEnumerable<T> Get<T>()
         {
@@ -230,7 +244,7 @@ namespace Simple.DBF
             sb.AppendLine($"CREATE TABLE {TableName} (");
 
             string[] exampleData = new string[Fields.Count];
-            if(includeExample) exampleData = getExampleData();
+            if (includeExample) exampleData = getExampleData();
 
             for (int i = 0; i < Fields.Count; i++)
             {
@@ -257,7 +271,7 @@ namespace Simple.DBF
                 for (int i = 0; i < Fields.Count; i++)
                 {
                     var val = Records[r].Data[i]?.ToString();
-                    
+
                     if (val == null) continue;
                     if (data[i] == null) data[i] = val;
                     if (data[i].Length < val.Length) data[i] = val;
@@ -284,6 +298,16 @@ namespace Simple.DBF
                 default:
                     return f.Type.ToString().ToUpper();
             }
+        }
+
+        // Enable Foreach
+        public IEnumerator<DataRow> GetEnumerator()
+        {
+            return ToDataTable().Rows.Cast<DataRow>().GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ToDataTable().Rows.GetEnumerator();
         }
 
         public static Reader Open(string Path, IProgress<int> Progress = null, Encoding encoding = null)
@@ -331,5 +355,6 @@ namespace Simple.DBF
             }
             return db.HeaderRowCount;
         }
+
     }
 }
