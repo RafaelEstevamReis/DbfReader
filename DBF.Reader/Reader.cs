@@ -21,8 +21,9 @@ namespace Simple.DBF
         public ProgressChangedEventHandler LoadProgressChanged;
 
         public Encoding Encoding { get; private set; }
+        public string TableName { get; private set; }
+        public string FilePath { get; private set; }
 
-        string tableName;
         private Header header;
 
         private Reader()
@@ -33,6 +34,10 @@ namespace Simple.DBF
         }
 
         public uint HeaderRowCount => header.RowCount;
+        public Versions HeaderVersion => header.Version;
+        public Encoding HeaderEncoding => header.Encoding;
+        public DateTime HeaderLastUpdate => header.LastUpdate;
+
         public int RowCount => Records.Count;
         public List<Field> Fields { get; }
         public List<Record> Records { get; }
@@ -54,8 +59,11 @@ namespace Simple.DBF
         }
         void read(string path)
         {
+            var fi = new FileInfo(path);
             reportProgress(0);
-            tableName = new FileInfo(path).Name.Split('.')[0];
+            TableName = fi.Name.Split('.')[0];
+            FilePath = fi.FullName;
+
             // Open stream for reading.
             using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
             {
@@ -129,7 +137,7 @@ namespace Simple.DBF
         private void readRecords(BinaryReader reader, byte[] memoData)
         {
             Records.Clear();
-                        
+
             while (reader.BaseStream.Position < reader.BaseStream.Length)
             {
                 var peekChar = reader.PeekChar();
@@ -147,7 +155,7 @@ namespace Simple.DBF
 
         public DataTable ToDataTable()
         {
-            var dt = new DataTable(tableName);
+            var dt = new DataTable(TableName);
             foreach (var v in Fields)
             {
                 var t = v.GetNativeType();
@@ -192,7 +200,7 @@ namespace Simple.DBF
         public string ExportModelClassTemplate()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"public record {tableName}");
+            sb.AppendLine($"public record {TableName}");
             sb.AppendLine("{");
             foreach (var f in Fields)
             {
@@ -219,29 +227,46 @@ namespace Simple.DBF
         public string ExportCreateTable(bool includeExample = false)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"CREATE TABLE {tableName} (");
+            sb.AppendLine($"CREATE TABLE {TableName} (");
+
+            string[] exampleData = new string[Fields.Count];
+            if(includeExample) exampleData = getExampleData();
+
             for (int i = 0; i < Fields.Count; i++)
             {
                 var f = Fields[i];
                 string typeName = buildSqlTypeName(f);
 
-                string example = null;
-                if (includeExample)
-                {
-                    for (int r = 0; r < 25 && r < Records.Count; r++)
-                    {
-                        example = Records[r].Data[i]?.ToString();
-                        if (!string.IsNullOrEmpty(example)) break;
-                    }
-                }
-
-                var field = $"  {f.Name} {typeName}, { (string.IsNullOrEmpty(example) ? "" : $" -- Example: `{example}`") } ";
+                string example = exampleData[i];
+                var field = $"  {f.Name} {typeName}, {(string.IsNullOrEmpty(example) ? "" : $" -- Example: `{example}`")} ";
                 sb.AppendLine(field);
             }
             sb.AppendLine(");");
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Returns longest value for each column in the first 25 rows
+        /// </summary>
+        private string[] getExampleData()
+        {
+            string[] data = new string[Fields.Count];
+            for (int r = 0; r < 25 && r < Records.Count; r++)
+            {
+                for (int i = 0; i < Fields.Count; i++)
+                {
+                    var val = Records[r].Data[i]?.ToString();
+                    
+                    if (val == null) continue;
+                    if (data[i] == null) data[i] = val;
+                    if (data[i].Length < val.Length) data[i] = val;
+                }
+
+            }
+            return data;
+        }
+
         private string buildSqlTypeName(Field f)
         {
             switch (f.Type)
