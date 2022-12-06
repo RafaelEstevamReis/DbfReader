@@ -91,6 +91,7 @@ namespace DBF.Viewer
             this.label1.Size = new System.Drawing.Size(42, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tables:";
+            this.label1.Visible = false;
             // 
             // cboTables
             // 
@@ -100,6 +101,7 @@ namespace DBF.Viewer
             this.cboTables.Name = "cboTables";
             this.cboTables.Size = new System.Drawing.Size(233, 23);
             this.cboTables.TabIndex = 1;
+            this.cboTables.Visible = false;
             this.cboTables.SelectedIndexChanged += new System.EventHandler(this.cboTables_SelectedIndexChanged);
             // 
             // grdDados

@@ -40,45 +40,35 @@ namespace DBF.Viewer
             textBox1.Text = folder;
 
             cboTables.Items.Clear();
-            var tables = Directory.GetFiles(folder, "*.dbf");
 
             trvTabelas.Nodes.Clear();
             nodeRecent = trvTabelas.Nodes.Add("Recent Tables");
             nodeEmpty = trvTabelas.Nodes.Add("Empty Tables");
             nodeTables = trvTabelas.Nodes.Add("Tables");
 
-            progressBar1.Value = 0;
-            for (int i = 0; i < tables.Length; i++)
+            var tables = Directory.GetFiles(folder, "*.dbf");
+            var progress = new Progress<int>();
+            progress.ProgressChanged += Progress_ProgressChanged;
+            // get table information
+            Database dt = Database.Load(folder, progress);
+            foreach (var t in dt.Tables)
             {
-                float perc = (i * 100f) / tables.Length;
-                int iPerc = (int)perc;
-                if (progressBar1.Value != iPerc)
-                {
-                    progressBar1.Value = iPerc;
-                    lblDadosTabela.Text = $"{i:N0}/{tables.Length:N0}";
-                    Application.DoEvents();
-                }
-
-                var fi = new FileInfo(tables[i]);
-
-                uint count;
                 string name;
-                try
+                if (t.LoadError == null)
                 {
-                    count = Reader.GetRowCount(fi.FullName);
-                    name = $"{fi.Name} [{count:N0} rows] ";
+                    name = $"{t.Name} [{t.RowCount:N0} rows] ";
                 }
-                catch
+                else
                 {
-                    count = 0;
-                    name = $"{fi.Name} [ERROR] ";
+                    name = $"{t.Name} [ERROR] ";
                 }
 
                 cboTables.Items.Add(name);
 
-                if (count == 0) nodeEmpty.Nodes.Add(name);
+                if (t.RowCount == 0) nodeEmpty.Nodes.Add(name);
                 else nodeTables.Nodes.Add(name);
             }
+
             progressBar1.Value = 0;
             lblDadosTabela.Text = "Complete";
 
@@ -165,7 +155,7 @@ namespace DBF.Viewer
             string unit = "";
 
             double dSize = bytes;
-            if(dSize > 512)
+            if (dSize > 512)
             {
                 dSize /= 1024;
                 unit = "KiB";
