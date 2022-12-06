@@ -8,7 +8,7 @@ namespace Simple.DBF
         {
             Version = (Versions)reader.ReadByte();
             byte year = reader.ReadByte();
-            if (year < 50) year += 100; // Good old millennium bug, i'll cut it in 50s
+            if (year < 70) year += 100; // Good old millennium bug, i'll cut it in 70s (dBase is from '79)
             LastUpdate = new DateTime(year + 1900, reader.ReadByte(), reader.ReadByte());
             RowCount = reader.ReadUInt32();
             HeaderLen = reader.ReadUInt16();
