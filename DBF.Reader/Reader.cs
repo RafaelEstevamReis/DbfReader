@@ -124,6 +124,8 @@ namespace Simple.DBF
         private void readHeader(BinaryReader reader)
         {
             byte bVersion = (byte)reader.PeekChar();
+            if (bVersion == 0) throw new Exception("File is corrupted");
+
             //reader.BaseStream.Seek(0, SeekOrigin.Begin);
             var version = (Versions)bVersion;
             header = Header.CreateHeader(version);
