@@ -126,8 +126,8 @@ namespace Simple.DBF
 
         private void readHeader(BinaryReader reader)
         {
-            byte bVersion = reader.ReadByte();
-            reader.BaseStream.Seek(0, SeekOrigin.Begin);
+            byte bVersion = (byte)reader.PeekChar();
+            //reader.BaseStream.Seek(0, SeekOrigin.Begin);
             var version = (Versions)bVersion;
             header = Header.CreateHeader(version);
             header.Read(reader);
@@ -342,16 +342,13 @@ namespace Simple.DBF
             var db = new Reader();
             using (FileStream stream = File.Open(fullName, FileMode.Open, FileAccess.Read))
             {
-                using (BinaryReader reader = new BinaryReader(stream))
-                {
-                    // Process reader
-                    // Get Memo data
-                    // Get Fields
-                    // reposition the cursor
-                    // read data
-
-                    db.readHeader(reader);
-                }
+                using BinaryReader reader = new BinaryReader(stream);
+                // Process reader
+                // Get Memo data
+                // Get Fields
+                // reposition the cursor
+                // read data
+                db.readHeader(reader);
             }
             return db.HeaderRowCount;
         }
