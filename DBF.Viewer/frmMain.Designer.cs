@@ -238,7 +238,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_Header_FieldCount
             // 
             this.lblTableInfo_General_Header_FieldCount.AutoSize = true;
-            this.lblTableInfo_General_Header_FieldCount.Location = new System.Drawing.Point(344, 109);
+            this.lblTableInfo_General_Header_FieldCount.Location = new System.Drawing.Point(306, 109);
             this.lblTableInfo_General_Header_FieldCount.Name = "lblTableInfo_General_Header_FieldCount";
             this.lblTableInfo_General_Header_FieldCount.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_Header_FieldCount.TabIndex = 33;
@@ -247,7 +247,7 @@ namespace DBF.Viewer
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(272, 109);
+            this.label17.Location = new System.Drawing.Point(232, 109);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(68, 15);
             this.label17.TabIndex = 32;
@@ -256,7 +256,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_File_LastWrite
             // 
             this.lblTableInfo_General_File_LastWrite.AutoSize = true;
-            this.lblTableInfo_General_File_LastWrite.Location = new System.Drawing.Point(78, 80);
+            this.lblTableInfo_General_File_LastWrite.Location = new System.Drawing.Point(78, 79);
             this.lblTableInfo_General_File_LastWrite.Name = "lblTableInfo_General_File_LastWrite";
             this.lblTableInfo_General_File_LastWrite.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_File_LastWrite.TabIndex = 31;
@@ -265,7 +265,7 @@ namespace DBF.Viewer
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(10, 80);
+            this.label20.Location = new System.Drawing.Point(10, 79);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(62, 15);
             this.label20.TabIndex = 30;
@@ -274,7 +274,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_File_CreatedAt
             // 
             this.lblTableInfo_General_File_CreatedAt.AutoSize = true;
-            this.lblTableInfo_General_File_CreatedAt.Location = new System.Drawing.Point(78, 65);
+            this.lblTableInfo_General_File_CreatedAt.Location = new System.Drawing.Point(78, 64);
             this.lblTableInfo_General_File_CreatedAt.Name = "lblTableInfo_General_File_CreatedAt";
             this.lblTableInfo_General_File_CreatedAt.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_File_CreatedAt.TabIndex = 29;
@@ -283,7 +283,7 @@ namespace DBF.Viewer
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(10, 65);
+            this.label18.Location = new System.Drawing.Point(10, 64);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(66, 15);
             this.label18.TabIndex = 28;
@@ -337,7 +337,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_Header_Encoding
             // 
             this.lblTableInfo_General_Header_Encoding.AutoSize = true;
-            this.lblTableInfo_General_Header_Encoding.Location = new System.Drawing.Point(366, 94);
+            this.lblTableInfo_General_Header_Encoding.Location = new System.Drawing.Point(327, 94);
             this.lblTableInfo_General_Header_Encoding.Name = "lblTableInfo_General_Header_Encoding";
             this.lblTableInfo_General_Header_Encoding.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_Header_Encoding.TabIndex = 22;
@@ -346,7 +346,7 @@ namespace DBF.Viewer
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(272, 94);
+            this.label13.Location = new System.Drawing.Point(232, 94);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(89, 15);
             this.label13.TabIndex = 21;
@@ -355,7 +355,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_Header_LastUpdate
             // 
             this.lblTableInfo_General_Header_LastUpdate.AutoSize = true;
-            this.lblTableInfo_General_Header_LastUpdate.Location = new System.Drawing.Point(350, 64);
+            this.lblTableInfo_General_Header_LastUpdate.Location = new System.Drawing.Point(310, 64);
             this.lblTableInfo_General_Header_LastUpdate.Name = "lblTableInfo_General_Header_LastUpdate";
             this.lblTableInfo_General_Header_LastUpdate.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_Header_LastUpdate.TabIndex = 20;
@@ -364,7 +364,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_Header_Version
             // 
             this.lblTableInfo_General_Header_Version.AutoSize = true;
-            this.lblTableInfo_General_Header_Version.Location = new System.Drawing.Point(326, 50);
+            this.lblTableInfo_General_Header_Version.Location = new System.Drawing.Point(286, 50);
             this.lblTableInfo_General_Header_Version.Name = "lblTableInfo_General_Header_Version";
             this.lblTableInfo_General_Header_Version.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_Header_Version.TabIndex = 19;
@@ -373,7 +373,7 @@ namespace DBF.Viewer
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(272, 64);
+            this.label11.Location = new System.Drawing.Point(232, 64);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(72, 15);
             this.label11.TabIndex = 18;
@@ -382,7 +382,7 @@ namespace DBF.Viewer
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(272, 50);
+            this.label10.Location = new System.Drawing.Point(232, 50);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 15);
             this.label10.TabIndex = 17;
@@ -391,7 +391,7 @@ namespace DBF.Viewer
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(264, 35);
+            this.label9.Location = new System.Drawing.Point(222, 35);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 15);
             this.label9.TabIndex = 16;
@@ -400,7 +400,7 @@ namespace DBF.Viewer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(466, 35);
+            this.label8.Location = new System.Drawing.Point(465, 35);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(75, 15);
             this.label8.TabIndex = 15;
@@ -409,7 +409,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_RowCount_Deleted
             // 
             this.lblTableInfo_General_RowCount_Deleted.AutoSize = true;
-            this.lblTableInfo_General_RowCount_Deleted.Location = new System.Drawing.Point(559, 64);
+            this.lblTableInfo_General_RowCount_Deleted.Location = new System.Drawing.Point(555, 64);
             this.lblTableInfo_General_RowCount_Deleted.Name = "lblTableInfo_General_RowCount_Deleted";
             this.lblTableInfo_General_RowCount_Deleted.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_RowCount_Deleted.TabIndex = 14;
@@ -418,7 +418,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_RowCount_Actual
             // 
             this.lblTableInfo_General_RowCount_Actual.AutoSize = true;
-            this.lblTableInfo_General_RowCount_Actual.Location = new System.Drawing.Point(559, 50);
+            this.lblTableInfo_General_RowCount_Actual.Location = new System.Drawing.Point(555, 50);
             this.lblTableInfo_General_RowCount_Actual.Name = "lblTableInfo_General_RowCount_Actual";
             this.lblTableInfo_General_RowCount_Actual.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_RowCount_Actual.TabIndex = 13;
@@ -427,7 +427,7 @@ namespace DBF.Viewer
             // lblTableInfo_General_RowCount_Reported
             // 
             this.lblTableInfo_General_RowCount_Reported.AutoSize = true;
-            this.lblTableInfo_General_RowCount_Reported.Location = new System.Drawing.Point(383, 80);
+            this.lblTableInfo_General_RowCount_Reported.Location = new System.Drawing.Point(348, 80);
             this.lblTableInfo_General_RowCount_Reported.Name = "lblTableInfo_General_RowCount_Reported";
             this.lblTableInfo_General_RowCount_Reported.Size = new System.Drawing.Size(12, 15);
             this.lblTableInfo_General_RowCount_Reported.TabIndex = 12;
@@ -436,7 +436,7 @@ namespace DBF.Viewer
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(476, 64);
+            this.label7.Location = new System.Drawing.Point(472, 64);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(81, 15);
             this.label7.TabIndex = 11;
@@ -445,7 +445,7 @@ namespace DBF.Viewer
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(476, 50);
+            this.label6.Location = new System.Drawing.Point(472, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(69, 15);
             this.label6.TabIndex = 10;
@@ -454,7 +454,7 @@ namespace DBF.Viewer
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(272, 79);
+            this.label5.Location = new System.Drawing.Point(232, 79);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(110, 15);
             this.label5.TabIndex = 9;

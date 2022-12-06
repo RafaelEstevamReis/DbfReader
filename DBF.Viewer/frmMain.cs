@@ -13,6 +13,7 @@ namespace DBF.Viewer
         private TreeNode nodeRecent;
         private TreeNode nodeEmpty;
         private TreeNode nodeTables;
+        private TreeNode nodeError;
 
         public frmMain()
         {
@@ -45,6 +46,7 @@ namespace DBF.Viewer
             nodeRecent = trvTabelas.Nodes.Add("Recent Tables");
             nodeEmpty = trvTabelas.Nodes.Add("Empty Tables");
             nodeTables = trvTabelas.Nodes.Add("Tables");
+            nodeError = trvTabelas.Nodes.Add("Loading Error");
 
             var tables = Directory.GetFiles(folder, "*.dbf");
             var progress = new Progress<int>();
@@ -57,16 +59,17 @@ namespace DBF.Viewer
                 if (t.LoadError == null)
                 {
                     name = $"{t.Name} [{t.RowCount:N0} rows] ";
+
+                    if (t.RowCount == 0) nodeEmpty.Nodes.Add(name);
+                    else nodeTables.Nodes.Add(name);
                 }
                 else
                 {
                     name = $"{t.Name} [ERROR] ";
+                    nodeError.Nodes.Add(name);
                 }
 
                 cboTables.Items.Add(name);
-
-                if (t.RowCount == 0) nodeEmpty.Nodes.Add(name);
-                else nodeTables.Nodes.Add(name);
             }
 
             progressBar1.Value = 0;
@@ -74,6 +77,7 @@ namespace DBF.Viewer
 
             nodeEmpty.Text = $"Empty Tables ({nodeEmpty.Nodes.Count})";
             nodeTables.Text = $"Tables ({nodeTables.Nodes.Count})";
+            nodeError.Text = $"Loading Error ({nodeError.Nodes.Count})";
         }
         private async void trvTabelas_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
