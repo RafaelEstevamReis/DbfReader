@@ -68,7 +68,7 @@ namespace Simple.DBF
             lastProgressReport = percent;
             LoadProgressChanged(this, new ProgressChangedEventArgs(percent, null));
         }
-        void read(string path)
+        void read(string path, bool loadMemos = true, bool loadRecords = true)
         {
             var fi = new FileInfo(path);
             reportProgress(0);
@@ -78,22 +78,23 @@ namespace Simple.DBF
             // Open stream for reading.
             using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
             {
-                using (BinaryReader reader = new BinaryReader(stream))
+                using BinaryReader reader = new BinaryReader(stream);
+                // Process reader
+                // Get Memo data
+                // Get Fields
+                // reposition the cursor
+                // read data
+
+                readHeader(reader);
+                byte[] memoData = loadMemos ? readMemos(path) : null;
+
+                reportProgress(1); // 1%
+                readFields(reader);
+
+                // 2+%
+                reportProgress(2);
+                if (loadRecords)
                 {
-                    // Process reader
-                    // Get Memo data
-                    // Get Fields
-                    // reposition the cursor
-                    // read data
-
-                    readHeader(reader);
-                    byte[] memoData = readMemos(path);
-
-                    reportProgress(1); // 1%
-                    readFields(reader);
-
-                    // 2+%
-                    reportProgress(2);
                     stream.Seek(header.HeaderLen, SeekOrigin.Begin);
                     readRecords(reader, memoData);
                 }
@@ -113,15 +114,11 @@ namespace Simple.DBF
                 }
             }
 
-            using (FileStream str = File.Open(memoPath, FileMode.Open, FileAccess.Read))
-            {
-                using (BinaryReader memoReader = new BinaryReader(str))
-                {
-                    byte[] memoData = new byte[str.Length];
-                    memoData = memoReader.ReadBytes((int)str.Length);
-                    return memoData;
-                }
-            }
+            using FileStream str = File.Open(memoPath, FileMode.Open, FileAccess.Read);
+            using BinaryReader memoReader = new BinaryReader(str);
+            byte[] memoData = new byte[str.Length];
+            memoData = memoReader.ReadBytes((int)str.Length);
+            return memoData;
         }
 
         private void readHeader(BinaryReader reader)
@@ -310,7 +307,7 @@ namespace Simple.DBF
             return ToDataTable().Rows.GetEnumerator();
         }
 
-        public static Reader Open(string Path, IProgress<int> Progress = null, Encoding encoding = null)
+        public static Reader Open(string Path, IProgress<int> Progress = null, Encoding encoding = null, bool loadRecords = true)
         {
             if (encoding == null) encoding = DefaultEncoding;
 
@@ -320,7 +317,7 @@ namespace Simple.DBF
             {
                 t.LoadProgressChanged += (s, e) => Progress.Report(e.ProgressPercentage);
             }
-            t.read(Path);
+            t.read(Path, true, loadRecords);
 
             return t;
         }
