@@ -52,9 +52,9 @@ namespace Simple.DBF
         public string Directory { get; private set; }
         public TableInfo[] Tables { get; private set; }
 
-        /// <summary>
-        /// Efficiently load big datasets(1000s of tables)
-        /// </summary>
+        public TableInfo this[string tableName]
+            => Tables.First(t => t.Name.Equals(tableName, StringComparison.InvariantCultureIgnoreCase));
+
         public static Database Load(string directory, IProgress<int> progress = null)
         {
             var dt = new Database(directory);
@@ -82,6 +82,9 @@ namespace Simple.DBF
             }
             else
             {
+                // Alread have everything
+                if (cachedReaderRecords != null) return cachedReaderRecords;
+
                 return cachedReaderPartial ??= Reader.Open(FileInfo.FullName, progress, Encoding, loadRecords: false);
             }
         }
