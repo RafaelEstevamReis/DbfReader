@@ -22,6 +22,7 @@ namespace Simple.DBF.DataTypes
             if (text.Length == 0) return null;
 
             if (text.StartsWith("0000")) text = "1900" + text.Substring(4);
+            if (text == "\0\0\0\0\0\0\0\0") text = "19000101";
 
             return DateTime.ParseExact(text, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
         }
