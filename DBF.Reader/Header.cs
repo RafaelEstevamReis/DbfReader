@@ -16,30 +16,17 @@ namespace Simple.DBF
 
         public static Header CreateHeader(Versions Version)
         {
-            Header h;
-            switch (Version)
+            Header h = Version switch
             {
-                case Versions.FoxBaseDBase3NoMemo:
-                    h = new HeaderV3();
-                    break;
-                case Versions.VisualFoxPro:
-                    h = new HeaderV3();
-                    break;
-                case Versions.VisualFoxProWithAutoIncrement:
-                    h = new HeaderV3();
-                    break;
-                case Versions.FoxPro2WithMemo:
-                    h = new HeaderV3();
-                    break;
-                case Versions.FoxBaseDBase3WithMemo:
-                    h = new HeaderV3();
-                    break;
-                case Versions.dBase4WithMemo:
-                    h = new HeaderV3();
-                    break;
-                default:
-                    throw new NotImplementedException("Unsuported " + Version);
-            }
+                Versions.FoxBaseDBase3NoMemo => new HeaderV3(),
+                Versions.VisualFoxPro => new HeaderV3(),
+                Versions.VisualFoxProWithAutoIncrement => new HeaderV3(),
+                Versions.FoxPro2WithMemo => new HeaderV3(),
+                Versions.FoxBaseDBase3WithMemo => new HeaderV3(),
+                Versions.dBase4WithMemo => new HeaderV3(),
+                _ => throw new NotImplementedException("Unsuported " + Version),
+            };
+
             h.Version = Version;
             return h;
         }
