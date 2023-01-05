@@ -74,6 +74,8 @@ namespace DBF.Viewer
             this.txtTableInfo_Schema_CSharp = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnTableInfo_Schema_Export_CSV = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdDados)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -81,6 +83,7 @@ namespace DBF.Viewer
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -467,6 +470,7 @@ namespace DBF.Viewer
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(4, 182);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -535,6 +539,27 @@ namespace DBF.Viewer
             this.label3.TabIndex = 6;
             this.label3.Text = "GENERAL";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.btnTableInfo_Schema_Export_CSV);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(780, 234);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "Export";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnTableInfo_Schema_Export_CSV
+            // 
+            this.btnTableInfo_Schema_Export_CSV.Location = new System.Drawing.Point(7, 6);
+            this.btnTableInfo_Schema_Export_CSV.Name = "btnTableInfo_Schema_Export_CSV";
+            this.btnTableInfo_Schema_Export_CSV.Size = new System.Drawing.Size(102, 23);
+            this.btnTableInfo_Schema_Export_CSV.TabIndex = 0;
+            this.btnTableInfo_Schema_Export_CSV.Text = "Save as CSV";
+            this.btnTableInfo_Schema_Export_CSV.UseVisualStyleBackColor = true;
+            this.btnTableInfo_Schema_Export_CSV.Click += new System.EventHandler(this.btnTableInfo_Schema_Export_CSV_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -563,6 +588,7 @@ namespace DBF.Viewer
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -614,5 +640,7 @@ namespace DBF.Viewer
         private Label label16;
         private Label lblTableInfo_General_Header_FieldCount;
         private Label label17;
+        private TabPage tabPage5;
+        private Button btnTableInfo_Schema_Export_CSV;
     }
 }

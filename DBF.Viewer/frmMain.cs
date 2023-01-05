@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace DBF.Viewer
 {
@@ -14,6 +15,7 @@ namespace DBF.Viewer
         private TreeNode nodeEmpty;
         private TreeNode nodeTables;
         private TreeNode nodeError;
+        //private Reader currentTable;
 
         public frmMain()
         {
@@ -122,6 +124,7 @@ namespace DBF.Viewer
             try
             {
                 var reader = await Task.Run(() => Reader.Open(filePath, progress));
+                //currentTable = reader;
                 grdDados.DataSource = reader.ToDataTable();
                 progressBar1.Value = 0;
                 atualizaStatus();
@@ -206,5 +209,51 @@ namespace DBF.Viewer
             progressBar1.Value = e;
         }
 
+        private async void btnTableInfo_Schema_Export_CSV_Click(object sender, EventArgs e)
+        {
+            if (grdDados.RowCount == 0)
+            {
+                MessageBox.Show("Selected table is empty");
+                return;
+            }
+
+            var tskRows = Task.Run(convertCsv); // process while user select destination
+
+            using var dlg = new SaveFileDialog();
+            var fi = new FileInfo(lblTableInfo_General_File_Path.Text);
+            dlg.FileName = $"{fi.Name}.csv";
+            dlg.Filter = "Arquivo *.CSV|*.csv";
+
+            if (dlg.ShowDialog() == DialogResult.Cancel) return;
+
+            string[] rows = await tskRows;
+            
+            File.WriteAllLines(dlg.FileName, rows);
+            MessageBox.Show($"CSV saved at:\n{dlg.FileName}");
+        }
+        private string[] convertCsv()
+        {
+            var rows = convertRowsCsv(grdDados.Rows.Cast<DataGridViewRow>());
+            rows = new string[] { convertHeaderCsv(grdDados) }
+                   .Union(rows);
+            return rows.ToArray();
+        }
+        private string convertHeaderCsv(DataGridView grid)
+        {
+            return string.Join(',', grdDados.Columns.Cast<DataGridViewColumn>().Select(c => c.HeaderText));
+        }
+        private IEnumerable<string> convertRowsCsv(IEnumerable<DataGridViewRow> rows) 
+            => rows.Select(r => convertRowCsv(r.Cells.Cast<DataGridViewCell>()));
+        private string convertRowCsv(IEnumerable<DataGridViewCell> row) 
+            => string.Join(',', row.Select(c => convertCellCsv(c.Value)));
+        private string convertCellCsv(object value)
+        {
+            if (value is null) return "\"\"";
+            var strVal = value.ToString();
+            // escape
+            if (strVal.Contains('"')) strVal = strVal.Replace("\"", "\"\"");
+
+            return $"\"{strVal}\"";
+        }
     }
 }
